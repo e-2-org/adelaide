@@ -1,6 +1,6 @@
 # Adelaide as a single page: session summary
 
-13 October 2026, working with Claude Code on `main`. The same session also worked on Tome and Word Perhect (see the `tome` and `wordperhect` repositories). The Adelaide part of the conversation is in [2026-10-13-transcript.md](2026-10-13-transcript.md).
+13 October 2026, working with Claude Code on `main`. The same session also worked on Tome and Word Perhect (see the `tome` and `wordperhect` repositories). The Adelaide part of the conversation is in [transcript.md](transcript.md).
 
 ## Aim
 
