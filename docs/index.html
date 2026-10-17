@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Adelaide - Simon Faithfull</title>
+<meta name="description" content="Adelaide by Simon Faithfull: a flow of simple line drawings, hinting at a narrative which never quite solidifies.">
+<style>
+html, body {
+    margin: 0;
+    min-height: 100%;
+    background: #fff;
+}
+main {
+    display: flex;
+    justify-content: center;
+}
+/* the drawing is the button: each click shows the next one */
+button {
+    display: block;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+}
+button:focus {
+    outline: none;
+}
+button:focus-visible {
+    outline: 1px dotted #999;
+}
+img {
+    display: block;
+    width: 594px;
+    max-width: 100vw;
+    height: auto;
+}
+</style>
+</head>
+<body>
+<main>
+    <button type="button" id="next" aria-label="Next drawing">
+        <img src="images/adelaide/1_01.gif" width="594" height="600" alt="Adelaide">
+    </button>
+</main>
+<script>
+/*
+ * The drawings, scene by scene: [scene, first, last] for images/adelaide/<scene>_<nn>.gif.
+ * Scene 1 plays forward; scenes 2 to 9 each play forward and back again;
+ * then scene 1 plays back, to start again from its first drawing.
+ */
+const SCENES = [[1, 1, 6], [2, 0, 6], [3, 1, 6], [4, 1, 4], [5, 1, 5], [6, 1, 6], [7, 1, 5], [8, 1, 6], [9, 1, 6]];
+
+const src = (scene, n) => `images/adelaide/${scene}_${String(n).padStart(2, '0')}.gif`;
+const range = (from, to) => Array.from({ length: Math.abs(to - from) + 1 }, (_, i) => from < to ? from + i : from - i);
+
+const [[first, start, end], ...rest] = SCENES;
+const sequence = [
+    ...range(start, end).map(n => src(first, n)),
+    ...rest.flatMap(([scene, a, b]) => [...range(a, b), ...range(b - 1, a)].map(n => src(scene, n))),
+    ...range(end, start + 1).map(n => src(first, n)),
+];
+
+/* fetch every drawing in the background, so each click shows the next straight away */
+new Set(sequence).forEach(url => new Image().src = url);
+
+const img = document.querySelector('#next img');
+let current = 0;
+document.getElementById('next').addEventListener('click', () => {
+    current = (current + 1) % sequence.length;
+    img.src = sequence[current];
+});
+</script>
+</body>
+</html>

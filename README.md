@@ -9,3 +9,7 @@ Adelaide consists of a flow of simple line drawings, the images hinting at an un
 **Produced by:** e-2
 
 **Viewing requirements:** A modern browser with JavaScript enabled
+
+## Layout
+
+The original files are at the top of this repository. The current version of the site is in `docs/`, which is what GitHub Pages publishes. Summaries and transcripts of the Claude Code sessions are in `_sessions/`.
